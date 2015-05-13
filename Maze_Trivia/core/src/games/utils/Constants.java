@@ -6,4 +6,5 @@ package games.utils;
 public class Constants {
     //pixels per meter
     public static final float PPM = 32;
+    public static final int PLAYER_SPEED = 7;
 }

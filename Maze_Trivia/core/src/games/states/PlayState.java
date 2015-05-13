@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 import games.managers.GameStateManager;
 import games.utils.TiledObjectUtil;
-import static games.utils.Constants.PPM;
+import static games.utils.Constants.*;
 
 /**
  * Created by Max Towery on 5/12/2015.
@@ -31,10 +31,10 @@ public class PlayState extends  GameState {
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
-        world = new World(new Vector2(0,-2.8f), false);
+        world = new World(new Vector2(0,0), false);
         b2dr = new Box2DDebugRenderer();
 
-        player = createBox(140, 140, 32, 32, false);
+        player = createBox(250, 190, 32, 32, false);
 
         //you can use this to create random stationary objects throughout the game
         //createBox(140, 130, 64, 32, true);
@@ -96,21 +96,32 @@ public class PlayState extends  GameState {
 
     }
 
+    //need to outsource this to a separate class
     public void inputUpdate(float delta){
         int horizontalForce = 0;
-
+        int verticalForce = 0;
+       // player.setAwake(false);
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             horizontalForce -= 1;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             horizontalForce += 1;
+
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)){
-            player.applyForceToCenter(0,300,false);
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+            //player.applyForceToCenter(0,50,true);
+            verticalForce += 1;
         }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            //player.applyForceToCenter(0,-50,true);
+            verticalForce -= 1;
+        }
+
+        player.setLinearVelocity(player.getLinearVelocity().x, verticalForce * PLAYER_SPEED);
         //5 represents meters/second
-        player.setLinearVelocity(horizontalForce * 5, player.getLinearVelocity().y);
+        player.setLinearVelocity(horizontalForce * PLAYER_SPEED, player.getLinearVelocity().y);
 
     }
 
