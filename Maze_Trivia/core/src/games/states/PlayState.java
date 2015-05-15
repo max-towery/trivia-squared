@@ -32,9 +32,12 @@ public class PlayState extends  GameState {
     public PlayState(GameStateManager gsm) {
         super(gsm);
         world = new World(new Vector2(0,0), false);
+
         b2dr = new Box2DDebugRenderer();
 
+
         player = createBox(250, 190, 32, 32, false);
+
 
         //you can use this to create random stationary objects throughout the game
         //createBox(140, 130, 64, 32, true);
@@ -129,6 +132,7 @@ public class PlayState extends  GameState {
         Body pBody;
         BodyDef def = new BodyDef();
 
+
         if (isStatic)//static body = movable, dynamic = fixed
             def.type = BodyDef.BodyType.StaticBody;
         else
@@ -139,7 +143,9 @@ public class PlayState extends  GameState {
         def.fixedRotation = true;
         pBody = world.createBody(def);
 
+
         PolygonShape shape = new PolygonShape();
+
         shape.setAsBox(width / 2 / PPM, height / 2 / PPM);
 
         pBody.createFixture(shape, 1.0f);
