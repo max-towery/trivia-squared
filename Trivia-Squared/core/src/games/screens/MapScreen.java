@@ -75,7 +75,7 @@ public class MapScreen implements Screen {
             }
         });
 
-        fadeAll();
+       
 
     }
 
