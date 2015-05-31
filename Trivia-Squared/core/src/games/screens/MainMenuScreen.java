@@ -56,6 +56,7 @@ public class MainMenuScreen implements Screen {
         tbs = new TextButton.TextButtonStyle();
         skin = new Skin();
 
+
         //load buttons
         buttonAtlas = app.assets.get("buttons/menubutton.pack", TextureAtlas.class);
 

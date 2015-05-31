@@ -28,13 +28,22 @@ public class LoadingScreen implements Screen {
 
     private void queueAssets() {
 
+
+        //miscellaneous images
         app.assets.load("images/logo.png", Texture.class);
+
+        //buttons
         app.assets.load("buttons/menubutton.pack", TextureAtlas.class);
+        app.assets.load("buttons/map.pack", TextureAtlas.class);
+        app.assets.load("buttons/arrows.pack", TextureAtlas.class);
+
+        //map images
         app.assets.load("images/1.png", Texture.class);
         app.assets.load("images/2.png", Texture.class);
         app.assets.load("images/3.png", Texture.class);
         app.assets.load("images/4.png", Texture.class);
         app.assets.load("images/5.png", Texture.class);
+
 
     }
 
@@ -42,6 +51,7 @@ public class LoadingScreen implements Screen {
     public void show() {
         this.progress = 0f;
         queueAssets();
+
     }
 
     private void update(float delta){
@@ -72,7 +82,7 @@ public class LoadingScreen implements Screen {
         shapeRenderer.end();
 
         app.batch.begin();
-        app.font30.draw(app.batch, "LOADING", 20, 30);
+        app.font50.draw(app.batch, "LOADING", app.camera.viewportWidth /2 - 85, app.camera.viewportHeight /2 + 100);
         app.batch.end();
     }
 

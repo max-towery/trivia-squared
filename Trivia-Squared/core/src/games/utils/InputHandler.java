@@ -3,35 +3,37 @@ package games.utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import games.Application;
-import games.containers.Rooms;
+import games.camera.CameraStyles;
+import games.screens.MainMenuScreen;
 
 /**
  * Created by Max Towery on 5/29/2015.
  */
 public class InputHandler {
 
-    public static void keyboardInput(final Application app){
-        if (Gdx.input.isKeyJustPressed(Input.Keys.M)){
-            app.camera.zoom = 13;
-            app.camera.position.set(0, 0, 0);
-            app.camera.position.set(app.V_WIDTH * Rooms.GRIDSIZE /2 , app.V_HEIGHT * Rooms.GRIDSIZE /2 , 0);
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.R)){
-            app.camera.position.set(app.startLoc[0] + app.V_WIDTH /2, app.startLoc[1] + app.V_HEIGHT /2, 0);
-            app.camera.zoom = 1;
+    public static void keyboardInput(final Application app, float delta){
+
+
+
+        //pause game
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)){
+            app.playScreen.pause();
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
-            app.camera.translate(0 - app.V_WIDTH , 0);
+        //increase score testing
+        if (Gdx.input.isKeyJustPressed(Input.Keys.T)){
+            app.score.increase();
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
-            app.camera.translate(app.V_WIDTH, 0);
+    }
+
+    public static void resumeGameListener(final Application app){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)){
+            app.setScreen(app.playScreen);
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)){
-            app.camera.translate(0, app.V_HEIGHT);
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)){
-            app.camera.translate(0, 0 - app.V_HEIGHT);
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.M)){
+            app.mainMenuScreen = new MainMenuScreen(app);
+            app.setScreen(app.mainMenuScreen);
         }
     }
 }

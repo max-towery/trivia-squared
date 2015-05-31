@@ -1,0 +1,61 @@
+
+arrows.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+dad
+  rotate: false
+  xy: 1, 164
+  size: 74, 85
+  orig: 74, 85
+  offset: 0, 0
+  index: -1
+dau
+  rotate: false
+  xy: 1, 77
+  size: 74, 85
+  orig: 74, 85
+  offset: 0, 0
+  index: -1
+uau
+  rotate: false
+  xy: 77, 164
+  size: 74, 85
+  orig: 74, 85
+  offset: 0, 0
+  index: -1
+lad
+  rotate: false
+  xy: 153, 175
+  size: 84, 74
+  orig: 84, 74
+  offset: 0, 0
+  index: -1
+uad
+  rotate: false
+  xy: 77, 77
+  size: 73, 85
+  orig: 73, 85
+  offset: 0, 0
+  index: -1
+lau
+  rotate: false
+  xy: 1, 1
+  size: 84, 74
+  orig: 84, 74
+  offset: 0, 0
+  index: -1
+rad
+  rotate: false
+  xy: 87, 1
+  size: 84, 74
+  orig: 84, 74
+  offset: 0, 0
+  index: -1
+rau
+  rotate: false
+  xy: 153, 99
+  size: 84, 74
+  orig: 84, 74
+  offset: 0, 0
+  index: -1
