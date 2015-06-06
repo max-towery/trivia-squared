@@ -8,7 +8,7 @@ import java.util.Arrays;
  * Created by Max Towery on 5/30/2015.
  */
 public class PathChecker {
-
+    /*
     //used for testing. Delete when finished.
     public static void main(String [] args){
 
@@ -181,7 +181,7 @@ public class PathChecker {
         }
     }
 
-
+*/
 
 }
 

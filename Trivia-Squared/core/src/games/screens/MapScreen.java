@@ -6,10 +6,11 @@ import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Timer;
+import static games.Application.GRIDSIZE;
 import games.Application;
 import games.utils.RoomGenerator;
 
@@ -25,6 +26,8 @@ public class MapScreen implements Screen {
     public float activeAcc;
     public boolean mapRecentlyActive;
 
+    public Image playerImage;
+
 
     private Skin skin;
     private TextButton backButton;
@@ -38,7 +41,6 @@ public class MapScreen implements Screen {
         this.app = app;
         this.stage = stage;
         activeAcc = 4;
-
     }
 
     @Override
@@ -46,8 +48,8 @@ public class MapScreen implements Screen {
         activeAcc = 0.0f;
         fadeAcc = 0.0f;
         fading = false;
-        app.camera.zoom = RoomGenerator.GRIDSIZE + 3;
-        app.camera.position.set(app.V_WIDTH * RoomGenerator.GRIDSIZE /2 , app.V_HEIGHT * RoomGenerator.GRIDSIZE /2 , 0);
+        app.camera.zoom = GRIDSIZE + 3;
+        app.camera.position.set(app.V_WIDTH * GRIDSIZE /2 , app.V_HEIGHT * GRIDSIZE /2 , 0);
 
 
         skin = new Skin();
@@ -62,23 +64,26 @@ public class MapScreen implements Screen {
         tbs.downFontColor = com.badlogic.gdx.graphics.Color.RED;
 
         backButton = new TextButton("GO BACK", tbs);
-        backButton.setBounds(app.V_WIDTH * RoomGenerator.GRIDSIZE /2 - 750, app.V_HEIGHT * RoomGenerator.GRIDSIZE /2 + 2450, 1500, 600);
-
+        backButton.setBounds(app.V_WIDTH * GRIDSIZE /2 - 750, app.V_HEIGHT * GRIDSIZE /2 + (GRIDSIZE /2 * app.V_HEIGHT + 500), 1500, 600);
         stage.addActor(backButton);
 
+        playerImage = new Image(app.assets.get("images/misc/playerPos.png", Texture.class));
+        playerImage.setBounds(app.playerLoc[0] + app.V_WIDTH /2 - 100, app.playerLoc[1] + app.V_HEIGHT /2 - 100, 200, 200);
+        stage.addActor(playerImage);
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 app.setScreen(app.playScreen);
                 app.camera.zoom = 1;
                 mapRecentlyActive = true;
+                app.grid[app.endLoc[0]][app.endLoc[1]].getImage2().addAction(fadeIn(1f));
+                app.camera.position.set(app.playScreen.xDest, app.playScreen.yDest, 0);
+                playerImage.setSize(0, 0);
+                app.playScreen.mapButton.hide();
             }
         });
 
-       
-
     }
-
 
     private void fadeExit(float delta){
 
@@ -87,12 +92,12 @@ public class MapScreen implements Screen {
         }
         else if (fadeAcc <= 0) {
             fading = false;
-            app.grid[app.endLoc[0]][app.endLoc[1]].getImage().addAction(fadeIn(1f));
+            app.grid[app.endLoc[0]][app.endLoc[1]].getImage2().addAction(fadeIn(1f));
         }
         else if (fading)
             fadeAcc -= delta;
         else if (fadeAcc >= 1){
-            app.grid[app.endLoc[0]][app.endLoc[1]].getImage().addAction(fadeOut(1f));
+            app.grid[app.endLoc[0]][app.endLoc[1]].getImage2().addAction(fadeOut(1f));
             fading = true;
         }
 
@@ -120,8 +125,8 @@ public class MapScreen implements Screen {
         Gdx.gl.glClearColor(0f, 0f, 0f, 0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         update(delta);
-        stage.draw();
 
+        stage.draw();
     }
 
     private void update(float delta)

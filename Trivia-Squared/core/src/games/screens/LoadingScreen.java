@@ -36,14 +36,29 @@ public class LoadingScreen implements Screen {
         app.assets.load("buttons/menubutton.pack", TextureAtlas.class);
         app.assets.load("buttons/map.pack", TextureAtlas.class);
         app.assets.load("buttons/arrows.pack", TextureAtlas.class);
+        app.assets.load("buttons/qButton.pack", TextureAtlas.class);
 
         //map images
-        app.assets.load("images/1.png", Texture.class);
-        app.assets.load("images/2.png", Texture.class);
-        app.assets.load("images/3.png", Texture.class);
-        app.assets.load("images/4.png", Texture.class);
-        app.assets.load("images/5.png", Texture.class);
+        app.assets.load("images/rooms/finish.png", Texture.class);
+        app.assets.load("images/rooms/start.png", Texture.class);
 
+        app.assets.load("images/rooms/0000.png", Texture.class);
+        app.assets.load("images/rooms/0001.png", Texture.class);
+        app.assets.load("images/rooms/0010.png", Texture.class);
+        app.assets.load("images/rooms/0011.png", Texture.class);
+        app.assets.load("images/rooms/0100.png", Texture.class);
+        app.assets.load("images/rooms/0101.png", Texture.class);
+        app.assets.load("images/rooms/0110.png", Texture.class);
+        app.assets.load("images/rooms/0111.png", Texture.class);
+        app.assets.load("images/rooms/1000.png", Texture.class);
+        app.assets.load("images/rooms/1001.png", Texture.class);
+        app.assets.load("images/rooms/1010.png", Texture.class);
+        app.assets.load("images/rooms/1011.png", Texture.class);
+        app.assets.load("images/rooms/1100.png", Texture.class);
+        app.assets.load("images/rooms/1101.png", Texture.class);
+        app.assets.load("images/rooms/1110.png", Texture.class);
+        app.assets.load("images/rooms/1111.png", Texture.class);
+        app.assets.load("images/misc/playerPos.png", Texture.class);
 
     }
 
@@ -58,6 +73,7 @@ public class LoadingScreen implements Screen {
         progress = MathUtils.lerp(progress, app.assets.getProgress(), .025f);
 
         if(app.assets.update() && progress >= app.assets.getProgress() - .01f){
+            app.mainMenuScreen = new MainMenuScreen(app);
             app.setScreen(app.mainMenuScreen);
         }
     }
@@ -82,7 +98,7 @@ public class LoadingScreen implements Screen {
         shapeRenderer.end();
 
         app.batch.begin();
-        app.font50.draw(app.batch, "LOADING", app.camera.viewportWidth /2 - 85, app.camera.viewportHeight /2 + 100);
+        app.font50.draw(app.batch, "LOADING...", app.camera.viewportWidth /2 - 110, app.camera.viewportHeight /2 + 100);
         app.batch.end();
     }
 

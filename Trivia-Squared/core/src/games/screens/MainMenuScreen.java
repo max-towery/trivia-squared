@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import games.Application;
-
+import games.containers.MenuButton;
 
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
@@ -29,13 +29,9 @@ public class MainMenuScreen implements Screen {
     private Stage stage;
     private Image logo;
 
-    private Skin skin;
-    private TextureAtlas buttonAtlas;
-    private TextButton.TextButtonStyle tbs;
-
-    private TextButton startButton;
-    private TextButton quitButton;
-    private TextButton loadButton;
+    private MenuButton startButton;
+    private MenuButton quitButton;
+    private MenuButton loadButton;
 
     public MainMenuScreen(Application app) {
         this.app = app;
@@ -53,47 +49,35 @@ public class MainMenuScreen implements Screen {
         logo.addAction(scaleTo(3f,3f, 3f));
         stage.addActor(logo);
 
-        tbs = new TextButton.TextButtonStyle();
-        skin = new Skin();
 
 
-        //load buttons
-        buttonAtlas = app.assets.get("buttons/menubutton.pack", TextureAtlas.class);
+        startButton = new MenuButton(app,"Start Game");
+        quitButton = new MenuButton(app,"Quit Game");
+        loadButton = new MenuButton(app,"Load Game");
+
+        int buttonHeight = app.V_HEIGHT / 3;
+        quitButton.setBounds(20, buttonHeight, 200, 45);
+        loadButton.setBounds(20, buttonHeight += 60, 200, 45);
+        startButton.setBounds(20, buttonHeight+= 60 , 200, 45);
 
 
-        skin.addRegions(buttonAtlas);
 
-        tbs.up = skin.getDrawable("up");
-        tbs.down = skin.getDrawable("down");
-        tbs.font = app.font30white;
-        tbs.over = skin.getDrawable("down");
-        tbs.downFontColor = Color.RED;
+        stage.addActor(startButton.getButton());
+        stage.addActor(quitButton.getButton());
+        stage.addActor(loadButton.getButton());
 
-
-        startButton = new TextButton("Start Game", tbs);
-        quitButton = new TextButton("Quit Game", tbs);
-        loadButton = new TextButton("Load Game", tbs);
-
-        startButton.setBounds(20, 280, 200, 45);
-        loadButton.setBounds(20, 210, 200, 45);
-        quitButton.setBounds(20, 140, 200, 45);
-
-
-        stage.addActor(startButton);
-        stage.addActor(quitButton);
-        stage.addActor(loadButton);
-
-        quitButton.addListener(new ClickListener(){
+        quitButton.getButton().addListener(new ClickListener(){
            @Override
             public void clicked(InputEvent event, float x, float y){
                Gdx.app.exit();
            }
         });
 
-        startButton.addListener(new ClickListener(){
+        startButton.getButton().addListener(new ClickListener(){
            @Override
             public void clicked(InputEvent event, float x, float y){
-               app.setScreen(app.playScreen);
+               app.difficultyScreen = new DifficultyScreen(app);
+               app.setScreen(app.difficultyScreen);
            }
         });
 
@@ -111,8 +95,6 @@ public class MainMenuScreen implements Screen {
         app.batch.begin();
         app.font50.draw(app.batch, "TRIVIA SQUARED", Gdx.graphics.getWidth() /2 - 140, app.V_HEIGHT - 70);
         app.batch.end();
-
-
 
     }
 

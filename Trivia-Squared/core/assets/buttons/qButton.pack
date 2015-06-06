@@ -1,0 +1,61 @@
+
+qButton.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bluedown
+  rotate: false
+  xy: 1, 181
+  size: 260, 58
+  orig: 260, 58
+  offset: 0, 0
+  index: -1
+blueup
+  rotate: false
+  xy: 1, 121
+  size: 260, 58
+  orig: 260, 58
+  offset: 0, 0
+  index: -1
+greendown
+  rotate: false
+  xy: 263, 181
+  size: 260, 58
+  orig: 260, 58
+  offset: 0, 0
+  index: -1
+greenup
+  rotate: false
+  xy: 1, 61
+  size: 260, 58
+  orig: 260, 58
+  offset: 0, 0
+  index: -1
+reddown
+  rotate: false
+  xy: 263, 121
+  size: 260, 58
+  orig: 260, 58
+  offset: 0, 0
+  index: -1
+redup
+  rotate: false
+  xy: 525, 181
+  size: 260, 58
+  orig: 260, 58
+  offset: 0, 0
+  index: -1
+yellowdown
+  rotate: false
+  xy: 1, 1
+  size: 260, 58
+  orig: 260, 58
+  offset: 0, 0
+  index: -1
+yellowup
+  rotate: false
+  xy: 263, 61
+  size: 260, 58
+  orig: 260, 58
+  offset: 0, 0
+  index: -1
