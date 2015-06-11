@@ -1,20 +1,21 @@
 package games.containers;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import games.Application;
+import games.GameStateManager;
 import games.interfaces.ButtonInterface;
+import games.screens.EndGameState;
+import games.utils.gameUtils.PathChecker;
 
 /**
  * Created by Max Towery on 6/3/2015.
  */
 public class QButton extends Button implements ButtonInterface {
 
-    boolean result; //true = correct, false = incorrect
-    public QButton(final Application app, String text, String up, String down){
+    private boolean result; //true = correct, false = incorrect
+    public QButton(final GameStateManager app, String text, String up, String down){
         super();
         buttonAtlas = app.assets.get("buttons/qButton.pack", TextureAtlas.class);
         skin.addRegions(buttonAtlas);
@@ -35,7 +36,6 @@ public class QButton extends Button implements ButtonInterface {
 
     @Override
     public void show() {
-
     }
 
     @Override
@@ -52,12 +52,14 @@ public class QButton extends Button implements ButtonInterface {
         this.result = result;
     }
 
-    public void setClickListener(final Application app, final boolean check){
+    public void setClickListener(final GameStateManager app, final boolean check){
 
         button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                app.soundManager.buttonSound(app);
                 if (check){
+
                     app.triviaScreen.setAnsweredCorrectly(app);
                     app.setScreen(app.playScreen);
                     app.camera.position.set(app.playScreen.xDest, app.playScreen.yDest, 0);
@@ -72,14 +74,15 @@ public class QButton extends Button implements ButtonInterface {
                         app.mapScreen.playerImage.setSize(0, 0);
                     app.updateImageData();
                     app.setScreen(app.playScreen);
+                    boolean isPath = PathChecker.checkPaths(app.grid, app.playerIndex[0], app.playerIndex[1]);
+                    if (!isPath){
+                        app.endGameScreen = new EndGameState(app);
+                        app.endGameScreen.setisWon(false);
+                        app.setScreen(app.endGameScreen);
+                    }
                 }
             }
         });
-    }
-
-    @Override
-    public void setText(String text) {
-        button.setText(text);
     }
 
     public boolean getResult() {

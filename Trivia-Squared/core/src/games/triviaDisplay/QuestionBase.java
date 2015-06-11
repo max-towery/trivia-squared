@@ -1,6 +1,6 @@
 package games.triviaDisplay;
 
-import games.Application;
+import games.GameStateManager;
 import games.containers.MenuButton;
 import games.containers.QButton;
 
@@ -19,7 +19,7 @@ public abstract class QuestionBase {
     Random rand;
     public boolean hintEnabled;
 
-    public QuestionBase(final Application app) {
+    public QuestionBase(final GameStateManager app) {
         buttonColorsUp = new String[]{"redup","blueup","yellowup", "greenup"};
         buttonColorsDown = new String [] {"reddown","bluedown","yellowdown","greendown"};
         qButtons = new QButton[4];
@@ -33,10 +33,10 @@ public abstract class QuestionBase {
         return question;
     }
 
-    public abstract void enableHint(final Application app);
+    public abstract void enableHint(final GameStateManager app);
 
 
-    public abstract void enterKeyPressed(Application app);
+    public abstract void enterKeyPressed(GameStateManager app);
 
-    public abstract void renderHint(final Application app, float delta);
+    public abstract void renderHint(final GameStateManager app, float delta);
 }

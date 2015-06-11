@@ -1,7 +1,6 @@
 package games.containers;
 
-import games.Application;
-import com.badlogic.gdx.graphics.Color;
+import games.GameStateManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import games.interfaces.ButtonInterface;
@@ -11,8 +10,7 @@ import games.interfaces.ButtonInterface;
  */
 public class MenuButton extends Button implements ButtonInterface{
 
-
-    public MenuButton(final Application app, String text){
+    public MenuButton(final GameStateManager app, String text){
         super();
         buttonAtlas = app.assets.get("buttons/menubutton.pack", TextureAtlas.class);
         skin.addRegions(buttonAtlas);
@@ -31,10 +29,8 @@ public class MenuButton extends Button implements ButtonInterface{
     }
 
     @Override
-    public void setClickListener(Application app, boolean check) {
-
+    public void setClickListener(GameStateManager app, boolean check) {
     }
-
 
     @Override
     public void hide() {
@@ -49,15 +45,10 @@ public class MenuButton extends Button implements ButtonInterface{
         return button;
     }
 
-    @Override
-    public void setText(String text) {
-        button.setText(text);
-    }
 
     @Override
     public boolean getResult() {
         return false;
     }
-
 
 }

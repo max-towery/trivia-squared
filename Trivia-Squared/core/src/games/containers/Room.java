@@ -1,8 +1,7 @@
 package games.containers;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import games.Application;
-import games.utils.Question;
+import games.utils.dbUtils.Question;
 
 /**
  * Created by Max Towery on 5/30/2015.
@@ -10,9 +9,11 @@ import games.utils.Question;
 public class Room {
 
     private Image image, image2;
-
+    private boolean visited;
+    public boolean isEnd;
     private boolean leftDoor, rightDoor, topDoor, botDoor;
     public int [] location;
+    public int [] index;
     public String[] doorSerial;
     public int questionType; //0 = multiple choice, 1 = t/f, 2 = short answer
     public String answer;
@@ -24,12 +25,14 @@ public class Room {
         leftDoor = true; rightDoor = true; topDoor = true; botDoor = true;
         location = new int[2];
         location[0] = 0; location[1] = 0;
+        index = new int[2];
         doorSerial = new String[4];
         for(int i = 0; i < doorSerial.length; i++)
             doorSerial[i] = "0";
         questionType = 0;
         answer = "right";
         textEntry = "";
+        visited = false;
     }
 
     public Image getImage() {
@@ -84,36 +87,27 @@ public class Room {
         return doorSerial;
     }
 
-    public boolean isLocked(){
-        if (!this.topDoor && !this.botDoor && !this.rightDoor && !this.leftDoor)
-            return true;
-        return false;
-    }
-
-    public void setToFalse(){
-        this.leftDoor = false;
-        this.rightDoor = false;
-        this.topDoor = false;
-        this.botDoor = false;
-    }
-
     public Image getImage2() {
         return image2;
     }
-
     public boolean isLeftDoor() {
         return leftDoor;
     }
-
     public boolean isRightDoor() {
         return rightDoor;
     }
-
     public boolean isTopDoor() {
         return topDoor;
     }
-
     public boolean isBotDoor() {
         return botDoor;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public boolean getVisited() {
+        return visited;
     }
 }

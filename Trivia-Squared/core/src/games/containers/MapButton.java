@@ -2,10 +2,8 @@ package games.containers;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import games.Application;
+import games.GameStateManager;
 import games.interfaces.ButtonInterface;
-
 
 
 /**
@@ -13,7 +11,7 @@ import games.interfaces.ButtonInterface;
  */
 public class MapButton extends Button implements ButtonInterface{
 
-    public MapButton(final Application app){
+    public MapButton(final GameStateManager app){
         super();
         buttonAtlas = app.assets.get("buttons/map.pack", TextureAtlas.class);
         skin.addRegions(buttonAtlas);
@@ -29,41 +27,19 @@ public class MapButton extends Button implements ButtonInterface{
 
     @Override
     public void setBounds(int x, int y, int w, int h) {
-
     }
 
     @Override
-    public void setClickListener(final Application app, boolean check) {
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(com.badlogic.gdx.scenes.scene2d.InputEvent event, float x, float y) {
-
-               if (!app.isCameraMoving()) {
-                    if (app.score.hasPointsForMap()) {
-                        app.setScreen(app.mapScreen);
-                        hide();
-
-                        for (int i = 0; i < 4; i++)
-                            app.playScreen.arrowButtons.getButtons()[i].setSize(0, 0);
-                    }
-                }
-            }
-        });
+    public void setClickListener(final GameStateManager app, boolean check) {
     }
 
-    @Override
-    public void setText(String text) {
-        button.setText(text);
-    }
 
     @Override
     public boolean getResult() {
         return false;
     }
 
-    public void updateButton(final Application app){
-
-
+    public void updateButton(final GameStateManager app){
         if (app.mapScreen.mapRecentlyActive)
             hide();
         if (!app.isCameraMoving()){

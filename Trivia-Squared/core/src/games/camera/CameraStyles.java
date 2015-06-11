@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector3;
  */
 public class CameraStyles {
 
-    public static final float LERP = .1f;
+    private static final float LERP = .1f;
 
     public static void lerpToTarget(Camera camera, int xDest, int yDest){
 

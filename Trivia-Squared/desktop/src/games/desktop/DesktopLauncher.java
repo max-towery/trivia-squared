@@ -2,17 +2,19 @@ package games.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import games.Application;
+import games.GameStateManager;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = Application.TITLE + " v" + Application.VERSION;
-		config.width = Application.V_WIDTH;
-		config.height = Application.V_HEIGHT;
+		config.title = GameStateManager.TITLE + " v" + GameStateManager.VERSION;
+		config.width = GameStateManager.V_WIDTH;
+		config.height = GameStateManager.V_HEIGHT;
 		config.backgroundFPS = 60;
 		config.foregroundFPS = 60;
-		config.resizable = true;
-		new LwjglApplication(new Application(), config);
+		config.resizable = false;
+		new LwjglApplication(new GameStateManager(), config);
+
 	}
+
 }

@@ -2,14 +2,11 @@ package games.containers;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import games.Application;
-import games.camera.CameraStyles;
-import games.screens.TriviaScreen;
-import games.utils.RoomGenerator;
+import games.GameStateManager;
+import games.screens.TriviaState;
 
 /**
  * Created by Max Towery on 5/30/2015.
@@ -21,7 +18,7 @@ public class ArrowButtons {
     private Button.ButtonStyle [] bs; //0 = up, 1 = down, 2 = left, 3 = right
     private Button buttons [];
 
-    public ArrowButtons(final Application app){
+    public ArrowButtons(final GameStateManager app){
 
         //init stuff
         skin = new Skin();
@@ -55,7 +52,7 @@ public class ArrowButtons {
     }
     public Button [] getButtons(){return buttons;}
 
-    public void updateArrowButtons(final Application app){
+    public void updateArrowButtons(final GameStateManager app){
             int i = app.playerIndex[0];
             int j = app.playerIndex[1];
 
@@ -97,17 +94,20 @@ public class ArrowButtons {
             }
 
     }
-        private void addListeners(final Application app){
+        private void addListeners(final GameStateManager app){
             buttons[0].addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    app.soundManager.buttonSound(app);
                     app.playerDirection = 0;
                     if (app.grid[app.playerIndex[0]+1][app.playerIndex[1]].question.answeredCorrectly){
                         app.updatePlayerData();
                     }
                     else{
-                        app.triviaScreen = new TriviaScreen(app);
+                        app.triviaScreen = new TriviaState(app);
                         app.playScreen.mapButton.hide();
+                        app.playScreen.pauseButton.hide();
+
                         hide();
                         app.setScreen(app.triviaScreen);
                     }
@@ -117,14 +117,16 @@ public class ArrowButtons {
             buttons[1].addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    app.soundManager.buttonSound(app);
                     app.playerDirection = 1;
                     if (app.grid[app.playerIndex[0]-1][app.playerIndex[1]].question.answeredCorrectly){
                         app.updatePlayerData();
                     }
                     else{
 
-                        app.triviaScreen = new TriviaScreen(app);
+                        app.triviaScreen = new TriviaState(app);
                         app.playScreen.mapButton.hide();
+                        app.playScreen.pauseButton.hide();
                         hide();
                         app.setScreen(app.triviaScreen);
                     }
@@ -134,13 +136,15 @@ public class ArrowButtons {
             buttons[2].addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    app.soundManager.buttonSound(app);
                     app.playerDirection = 2;
                     if (app.grid[app.playerIndex[0]][app.playerIndex[1]-1].question.answeredCorrectly){
                         app.updatePlayerData();
                     }
                     else{
-                        app.triviaScreen = new TriviaScreen(app);
+                        app.triviaScreen = new TriviaState(app);
                         app.playScreen.mapButton.hide();
+                        app.playScreen.pauseButton.hide();
                         hide();
                         app.setScreen(app.triviaScreen);
                     }
@@ -150,14 +154,16 @@ public class ArrowButtons {
             buttons[3].addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
+                    app.soundManager.buttonSound(app);
                     app.playerDirection = 3;
                     if (app.grid[app.playerIndex[0]][app.playerIndex[1]+1].question.answeredCorrectly){
                         app.updatePlayerData();
                     }
                     else{
                         app.grid[app.playerIndex[0]][app.playerIndex[1]+1].question.asked();
-                        app.triviaScreen = new TriviaScreen(app);
+                        app.triviaScreen = new TriviaState(app);
                         app.playScreen.mapButton.hide();
+                        app.playScreen.pauseButton.hide();
                         hide();
                         app.setScreen(app.triviaScreen);
                     }
